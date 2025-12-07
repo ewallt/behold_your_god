@@ -1,16 +1,22 @@
-if (typeof Dexie === 'undefined') console.error("Dexie.js missing.");class CrossStore {
+if (typeof Dexie === 'undefined') console.error("Dexie.js missing.");
+
+class BeholdStore {
     constructor() {
-        this.db = new Dexie("CrossPerspectivesDB");
+        // Critical: Unique database name for the new project
+        this.db = new Dexie("BeholdYourGodDB");
         this.db.version(1).stores({ insights: '++id, voice, title, *tags, created_at' });
     }
     async init() {
         if (!this.db.isOpen()) await this.db.open();
         const count = await this.db.insights.count();
         if (count === 0) {
+            // Generic seed data to initialize the DB without theology specifics
             await this.db.insights.add({
-                voice: "René Girard", title: "The Scapegoat Mechanism",
-                text: "Communities unify by channeling violence toward a single victim.",
-                tags: ["Non-Violence"], created_at: new Date().toISOString()
+                voice: "System", 
+                title: "Welcome to Behold Your God",
+                text: "The database is initialized and ready for import.",
+                tags: ["System"], 
+                created_at: new Date().toISOString()
             });
         }
     }
@@ -18,4 +24,5 @@ if (typeof Dexie === 'undefined') console.error("Dexie.js missing.");class Cross
     async getByVoice(voice) { return await this.db.insights.where('voice').equals(voice).toArray(); }
     async add(data) { return await this.db.insights.add({ ...data, created_at: new Date().toISOString() }); }
 }
-window.store = new CrossStore();
+
+window.store = new BeholdStore();
