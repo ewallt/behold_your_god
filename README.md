@@ -1,6 +1,6 @@
-# Cross Perspectives: Study of the Cross
+# Behold Your God: A study of the character of God
 
-**Cross Perspectives** is a digital knowledge base designed to facilitate a comparative study of atonement theology. It functions as a curated library where distinct theological voices—from the Early Church Fathers to modern theologians—are brought into conversation with one another.
+**Behold Your God** is a digital knowledge base designed to facilitate a comparative study of atonement theology. It functions as a curated library where distinct theological voices—from the Early Church Fathers to modern theologians—are brought into conversation with one another.
 
 ## 🏗 Architecture: Universal Snapshot (v2.3)
 
@@ -23,17 +23,17 @@ The project uses a **Flat-File Paradigm** to ensure portability and ease of host
 | File | Type | Responsibility |
 | :--- | :--- | :--- |
 | `index.html` | **Routing** | The landing page. Directs traffic to the Reader or the Studio. |
-| `cp-viewer.html` | **Reader** | The read-only interface for browsing and studying insights. |
-| `cp-hub.html` | **Studio** | The "Editor-in-Chief" interface for curating and adding new content. |
-| `cp-store.js` | **Logic** | Manages the Dexie.js database connection and CRUD operations. |
-| `cp-config.js` | **Data** | Defines the list of Voices (Theologians) and Tags. |
-| `cp-renderers.js` | **View** | Pure functions that generate HTML strings for the UI. |
+| `byg-viewer.html` | **Reader** | The read-only interface for browsing and studying insights. |
+| `byg-hub.html` | **Studio** | The "Editor-in-Chief" interface for curating and adding new content. |
+| `byg-store.js` | **Logic** | Manages the Dexie.js database connection and CRUD operations. |
+| `byg-config.js` | **Data** | Defines the list of Voices (Theologians) and Tags. |
+| `byg-renderers.js` | **View** | Pure functions that generate HTML strings for the UI. |
 
 ## 🚀 How to Run
 
 ### Online (GitHub Pages)
 Visit the live deployment at:
-`https://[YOUR_USERNAME].github.io/cross-perspectives/`
+`https://[YOUR_USERNAME].github.io/behold_your_god/`
 
 ### Local Development
 1.  Clone this repository.
