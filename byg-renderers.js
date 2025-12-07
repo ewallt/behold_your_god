@@ -45,5 +45,8 @@ const Renderers = {
         <div class="flex flex-col items-center justify-center py-20 border-2 border-dashed border-slate-800 rounded-lg bg-slate-900/30">
             <div class="text-slate-600 mb-2 text-4xl">∅</div>
             <p class="text-slate-500 font-medium text-sm">No insights found in this collection.</p>
+            <a href="byg-hub.html" class="mt-4 text-xs text-emerald-400 hover:text-emerald-300 transition-colors">
+                → Add content in Studio Hub
+            </a>
         </div>`
 };
