@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Studio | Cross Perspectives</title>
+    <title>Studio | Behold Your God</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/dexie/dist/dexie.js"></script>
 </head>
@@ -12,7 +12,7 @@
         <h1 class="font-bold">Studio</h1>
         <div class="space-x-4">
             <span id="status" class="text-xs text-emerald-500 hidden">Saved!</span>
-            <a href="cp-viewer.html" class="text-sm text-zinc-500 hover:text-white">Go to Reader →</a>
+            <a href="byg-viewer.html" class="text-sm text-zinc-500 hover:text-white">Go to Reader →</a>
         </div>
     </header>
 
@@ -30,21 +30,32 @@
         <button type="submit" class="w-full bg-zinc-100 text-black font-bold py-2 rounded hover:bg-white">Save Single Insight</button>
     </form>
 
-    <script src="cp-config.js"></script>
-    <script src="cp-store.js"></script>
+    <script src="byg-config.js"></script>
+    <script src="byg-store.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             await store.init();
             
             // Populate Dropdown
             const sel = document.getElementById('voice');
-            CONFIG.VOICES.forEach(v => sel.innerHTML += `<option value="${v}">${v}</option>`);
+            // If CONFIG.VOICES is empty (which it is), we try to get voices from DB
+            if (CONFIG.VOICES.length > 0) {
+                CONFIG.VOICES.forEach(v => sel.innerHTML += `<option value="${v}">${v}</option>`);
+            } else {
+                // Fallback: Check if DB has voices (after import)
+                const dbVoices = await store.db.insights.orderBy('voice').uniqueKeys();
+                if (dbVoices.length > 0) {
+                    dbVoices.forEach(v => sel.innerHTML += `<option value="${v}">${v}</option>`);
+                } else {
+                    sel.innerHTML = `<option value="">Import data to populate voices</option>`;
+                }
+            }
 
             // Manual Submit Logic
             document.getElementById('form').onsubmit = async (e) => {
                 e.preventDefault();
                 await store.add({
-                    voice: sel.value, 
+                    voice: sel.value || "Manual Entry", 
                     title: document.getElementById('title').value,
                     text: document.getElementById('text').value, 
                     tags: []
@@ -99,6 +110,7 @@
                             }
                         }
                         alert(`Successfully imported ${count} insights.`);
+                        window.location.reload(); // Reload to refresh dropdowns
                     } catch (err) {
                         alert('Import failed: ' + err.message);
                     }
